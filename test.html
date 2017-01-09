@@ -1,12 +1,47 @@
 <!DOCTYPE>
+<html>
 
 <head>
     <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.js"></script>
+    <style type="text/css">
+        div {
+            border: 2px blue solid;
+        }
+    </style>
 </head>
 
 <body>
-    <br>app3-test v-if顯示隱藏元素<br>
-    <div id="app3" style="border:2px blue solid;">
+    <br>app1-test 內崁繫結{{}}<br>
+    <div id="app1">
+        {{ message }}
+    </div>
+
+    <script type="text/javascript">
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                message: 'Hello Vue!'
+            }
+        });
+    </script>
+
+    <br>app2-test 屬性繫結 v-bind<br>
+    <div id="app2">
+        <span v-bind:title="message2">
+            Hover your mouse over me for a few seconds to see my dynamically bound title!
+        </span>
+    </div>
+    <script type="text/javascript">
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                message2: 'You loaded this page on ' + new Date()
+            }
+        });
+    </script>
+
+    <br>app3-test 顯示/隱藏元素 v-if<br>
+    <div id="app3">
         <p v-if="seen">Now you see me</p>
     </div>
     <script type="text/javascript">
@@ -18,8 +53,8 @@
         });
     </script>
 
-    <br>app4-test v-for迴圈顯示元素<br>
-    <div id="app4" style="border:2px blue solid;">
+    <br>app4-test 迴圈顯示元素 v-for<br>
+    <div id="app4">
         <ol>
             <li v-for="todo in todos">
                 {{ todo.text }}
@@ -41,8 +76,8 @@
         });
     </script>
 
-    <br>app5-test v-on綁定事件<br>
-    <div id="app5" style="border:2px blue solid;">
+    <br>app5-test 綁定事件 v-on<br>
+    <div id="app5">
         <p>{{ message }}</p>
         <button v-on:click="reverseMessage">Reverse Message</button>
     </div>
@@ -59,4 +94,61 @@
             }
         });
     </script>
+
+    <br>app6-test 雙向數據綁定 v-model<br>
+    <div id="app6">
+        <p>{{ message }}</p>
+        <input v-model="message">
+    </div>
+    <script type="text/javascript">
+        var app6 = new Vue({
+            el: '#app6',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+    </script>
+
+    <br>app7_1-test 引用 component<br>
+    <div id="app7_1">
+        <ol>
+            <!-- Create an instance of the todo-item component -->
+            <todo-item></todo-item>
+        </ol>
+    </div>
+    <script type="text/javascript" src="todo-item7_1.js"></script>
+    <script type="text/javascript">
+        var app7_1 = new Vue({
+            el: '#app7_1',
+            data: {
+
+            }
+        })
+    </script>
+
+    <br>app7_2-test 引用 component 並進行屬性繫結<br>
+    <div id="app7_2">
+        <ol>
+            <!-- Now we provide each todo-item with the todo object    -->
+            <!-- it's representing, so that its content can be dynamic -->
+            <todo-item2 v-for="item in groceryList" v-bind:todo="item"></todo-item2>
+        </ol>
+    </div>
+    <script type="text/javascript" src="todo-item7_2.js"></script>
+    <script type="text/javascript">
+        var app7_2 = new Vue({
+            el: '#app7_2',
+            data: {
+                groceryList: [{
+                    text: 'Vegetables'
+                }, {
+                    text: 'Cheese'
+                }, {
+                    text: 'Whatever else humans are supposed to eat'
+                }]
+            }
+        })
+    </script>
 </body>
+
+</html>
